@@ -1,0 +1,28 @@
+{{ template "base" . }}
+
+{{ define "title" }}
+Файловый менеджер
+{{ end }}
+
+{{ define "main" }}
+<div class="d-flex flex-column py-2">
+    {{ if ne .Path "/" }}
+    <div class="d-flex">
+        <a class="text-decoration-none px-2 py-1" href="{{ .Parent }}">Назад</a>
+    </div>
+    {{ end }}
+    {{ range .Entries }}
+    <div class="row px-2 py-1">
+        <a class="col text-decoration-none" href="{{ .Path }}">
+            {{ .Name }}{{ if .IsDir }}/{{ end }}
+        </a>
+        <div class="col">
+            {{ .ModifiedAt.Format "02.01.2006 15:04:05" }}
+        </div>
+        <div class="col">
+            {{ .Mode }}
+        </div>
+    </div>
+    {{ end }}
+</div>
+{{ end }}
